@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thực hành Lesson 2 - CSS cơ bản</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .title-container {
+            text-align: center;
+            color: #b81c1c;
+            margin-bottom: 20px;
+        }
+
+        .title-container h1 {
+            font-size: 20px;
+            margin: 0 0 5px 0;
+            text-transform: uppercase;
+        }
+
+        .title-container h2 {
+            font-size: 18px;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .invoice-card {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-top: 5px solid #6b9cd2;
+            padding: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+            box-sizing: border-box;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .logo {
+            font-size: 14px;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+        }
+
+        .store-info {
+            text-align: right;
+        }
+
+        .store-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            color: #2c3e50;
+            text-transform: uppercase;
+        }
+
+        .store-info p {
+            margin: 2px 0;
+            font-size: 12px;
+            color: #555;
+        }
+
+        .customer-info {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .customer-info span {
+            font-weight: bold;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+
+        .invoice-table th {
+            text-align: left;
+            padding: 10px 5px;
+            border-bottom: 2px solid #333;
+            color: #333;
+        }
+
+        .invoice-table td {
+            padding: 12px 5px;
+            border-bottom: 1px solid #eee;
+            color: #555;
+        }
+
+        .invoice-table th:nth-child(1),
+        .invoice-table td:nth-child(1) {
+            width: 10%;
+        }
+
+        .invoice-table th:nth-child(2),
+        .invoice-table td:nth-child(2) {
+            width: 50%;
+        }
+
+        .invoice-table th:nth-child(3),
+        .invoice-table td:nth-child(3) {
+            width: 20%;
+        }
+
+        .invoice-table th:nth-child(4),
+        .invoice-table td:nth-child(4) {
+            width: 20%;
+        }
+
+        .total-section {
+            text-align: right;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        .total-section .total-label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .total-section .total-amount {
+            font-weight: bold;
+            color: #e74c3c;
+            margin-left: 10px;
+        }
+
+        .actions {
+            text-align: center;
+        }
+
+        .btn-export {
+            background-color: #6b9cd2;
+            color: #ffffff;
+            border: none;
+            padding: 8px 20px;
+            font-size: 13px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .btn-export:hover {
+            background-color: #5583b6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title-container">
+        <h1>THỰC HÀNH LESSON 2</h1>
+        <h2>Thực hành CSS cơ bản</h2>
+    </div>
+
+    <div class="invoice-card">
+        <div class="header">
+            <div class="logo">
+                <span style="font-size:12px; color:#aaa; margin-right:4px;">🖼</span> Logo
+            </div>
+            <div class="store-info">
+                <h3>CỬA HÀNG ĐIỆN TỬ ABC</h3>
+                <p>Địa chỉ: 456 Đường XYZ, Hà Nội</p>
+                <p>Điện thoại: 090 123 4567</p>
+            </div>
+        </div>
+
+        <div class="customer-info">
+            <div><span>Khách hàng:</span> Anh Hoàng Minh</div>
+            <div><span>Ngày xuất:</span> 17/04/2026</div>
+        </div>
+
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Giá tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Tai nghe Bluetooth Sony</td>
+                    <td>01</td>
+                    <td>2.000.000đ</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sạc dự phòng 20.000mAh</td>
+                    <td>02</td>
+                    <td>1.000.000đ</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            <span class="total-label">Tổng cộng:</span>
+            <span class="total-amount">3.000.000đ</span>
+        </div>
+
+        <div class="actions">
+            <button class="btn-export">Xuất hóa đơn</button>
+        </div>
+    </div>
+
+</body>
+</html>

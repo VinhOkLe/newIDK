@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
+
+* {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.card {
+    background-color: #c1ffff;
+    width: 100%;
+    max-width: 320px;
+    padding: 24px;
+    border-radius: 20px;
+    border-top: 5px solid hsl(197, 100%, 50%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.tag {
+    color: #2eceff;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-top: 4px;
+}
+
+.name {
+    color: #01afff;
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.description {
+    color: #00c0fa;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.btn-theme {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: #43ace8;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-theme:hover {
+    background-color: #00e1ff;
+}
+
+.btn-theme:active {
+    transform: scale(0.98);
+}

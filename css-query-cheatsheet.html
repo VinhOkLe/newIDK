@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSS Selector Cheat Sheet — Query phần tử HTML bằng .class</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --card:#fff; --ink:#17202e; --muted:#5b6678; --line:#e2e7f0;
+    --blue:#2563eb; --blue-soft:#eaf1ff; --green:#047857; --green-soft:#e6f6ef;
+    --orange:#b45309; --orange-soft:#fff4e0; --purple:#6d28d9; --purple-soft:#f1eaff;
+    --pink:#be185d; --pink-soft:#fdf2f8; --code-bg:#101827; --code-ink:#e8eefc;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+  header.hero{background:#101827;color:#fff;padding:44px 24px 34px}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+  .hero h1{margin:0 0 10px;font-size:clamp(1.9rem,4vw,3rem);line-height:1.15}
+  .hero p{margin:0;color:#cbd5e1;max-width:860px}
+  .badges{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px}
+  .badge{background:#1e293b;border:1px solid #334155;color:#dbeafe;padding:6px 12px;border-radius:999px;font-size:.85rem}
+  main{padding:28px 0 50px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 2px 10px rgba(15,23,42,.04)}
+  section.card.full{grid-column:1/-1}
+  h2{margin:0 0 6px;font-size:1.35rem}
+  h3{margin:20px 0 8px;font-size:1.05rem}
+  .sub{color:var(--muted);margin:0 0 14px}
+  .tag{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border-radius:999px;margin-bottom:10px}
+  .tag.blue{background:var(--blue-soft);color:var(--blue)}
+  .tag.green{background:var(--green-soft);color:var(--green)}
+  .tag.orange{background:var(--orange-soft);color:var(--orange)}
+  .tag.purple{background:var(--purple-soft);color:var(--purple)}
+  .tag.pink{background:var(--pink-soft);color:var(--pink)}
+  pre{background:var(--code-bg);color:var(--code-ink);padding:14px 16px;border-radius:12px;overflow:auto;font-size:.88rem;line-height:1.55;margin:10px 0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  p code, li code, td code{background:#eef2ff;color:#4338ca;padding:2px 6px;border-radius:5px;font-size:.88em}
+  pre code{background:none;color:inherit;padding:0}
+  .c{color:#94a3b8}
+  .table-wrap{overflow:auto}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;margin:10px 0;min-width:560px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f8fafc;white-space:nowrap}
+  ul,ol{padding-left:20px;margin:8px 0}
+  li{margin:5px 0}
+  .note{border-left:4px solid var(--blue);background:var(--blue-soft);padding:12px 14px;border-radius:0 10px 10px 0;margin:14px 0}
+  .warn{border-left-color:var(--orange);background:var(--orange-soft)}
+  .good{border-left-color:var(--green);background:var(--green-soft)}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .vs>div{border:1px solid var(--line);border-radius:12px;padding:14px}
+  .vs .yes{border-color:#a7f3d0;background:#f0fdf4}
+  .vs .no{border-color:#fecaca;background:#fef2f2}
+
+  /* ===== DEMO TRỰC QUAN — chính các selector này đang chạy thật ===== */
+  .demo{border:2px dashed #c7d2fe;border-radius:14px;padding:18px;background:#f8fafc}
+  .demo .demo-note{font-size:.85rem;color:var(--muted);margin:0 0 12px}
+  .demo-box p{margin:6px 0}                                   /* mọi <p> trong .demo-box */
+  .demo-box > p{font-weight:700;color:var(--blue)}            /* chỉ <p> là con trực tiếp */
+  .demo-list{list-style:none;padding:0;margin:0;display:flex;gap:8px;flex-wrap:wrap}
+  .demo-list li{background:#fff;border:1px solid var(--line);border-radius:8px;padding:8px 12px}
+  .demo-list li:first-child{background:#dbeafe;border-color:var(--blue)}
+  .demo-list li:nth-child(3){background:#fef3c7;border-color:var(--orange)}
+  .demo-list li:last-child{background:#dcfce7;border-color:var(--green)}
+  .demo-card{border:2px solid var(--line);border-radius:12px;padding:14px;background:#fff;margin-top:12px}
+  .demo-card.featured{border-color:var(--purple);box-shadow:0 0 0 3px var(--purple-soft)}
+  .demo-btn{border:0;border-radius:8px;padding:9px 16px;background:var(--blue);color:#fff;cursor:pointer;font-weight:600}
+  .demo-btn:hover{background:#1d4ed8;transform:translateY(-1px)}
+  .demo-btn.primary{background:var(--purple)}
+  input.demo-input[type="text"]{border:2px solid var(--line);border-radius:8px;padding:8px 12px;width:100%;max-width:320px}
+  input.demo-input[type="text"]:focus{outline:none;border-color:var(--blue)}
+  .demo-parent:has(.demo-badge){border-color:var(--pink)}
+  .demo-badge{display:inline-block;background:var(--pink-soft);color:var(--pink);font-size:.8rem;font-weight:700;padding:2px 8px;border-radius:999px}
+  footer{color:var(--muted);text-align:center;padding:0 20px 36px;font-size:.9rem}
+  @media (max-width:768px){
+    .grid,.vs{grid-template-columns:1fr}
+    header.hero{padding:32px 16px 26px}
+    section.card{padding:18px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <h1>CSS Selector Cheat Sheet</h1>
+    <p>“Query” trong CSS chính là <b>selector</b>: câu truy vấn để chọn đúng phần tử HTML rồi style cho nó. Trọng tâm là dạng <b>.class</b>, kèm <b>#id</b>, thẻ, thuộc tính, combinator và pseudo-class. Cùng một cú pháp này cũng dùng trong JavaScript: <code>document.querySelector('.card')</code>.</p>
+    <div class="badges">
+      <span class="badge">🎯 <b>.class</b> = chọn theo class</span>
+      <span class="badge">#id = chọn theo id duy nhất</span>
+      <span class="badge">div p = chọn theo quan hệ</span>
+      <span class="badge">:hover = chọn theo trạng thái</span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- HTML MẪU CHUNG -->
+  <section class="card full" style="margin-bottom:20px">
+    <span class="tag blue">HTML mẫu dùng xuyên suốt file này</span>
+    <h2>Đọc HTML trước, rồi mới hiểu selector chọn cái nào</h2>
+    <div class="grid">
+      <div>
+<pre><code>&lt;div <span class="c">class</span>="card featured"&gt;
+  &lt;h2 <span class="c">class</span>="title"&gt;Tiêu đề&lt;/h2&gt;
+  &lt;p <span class="c">class</span>="desc"&gt;Mô tả sản phẩm&lt;/p&gt;
+  &lt;button <span class="c">class</span>="btn primary"&gt;Mua ngay&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;ul <span class="c">class</span>="menu"&gt;
+  &lt;li&gt;Trang chủ&lt;/li&gt;
+  &lt;li&gt;Sản phẩm&lt;/li&gt;
+  &lt;li&gt;Liên hệ&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+      </div>
+      <div>
+        <p class="sub">Quy ước đọc:</p>
+        <ul>
+          <li><code>class="card featured"</code> nghĩa là phần tử đó có <b>2 class</b>: <code>card</code> và <code>featured</code>.</li>
+          <li><code>class="btn primary"</code> tương tự: có cả <code>btn</code> và <code>primary</code>.</li>
+          <li>Trong CSS, <b>dấu chấm <code>.</code> đi trước tên class</b>, <b>dấu thăng <code>#</code> đi trước id</b>. Viết <code>card</code> không có dấu chấm là chọn thẻ <code>&lt;card&gt;</code> — thẻ này không tồn tại.</li>
+        </ul>
+        <div class="note"><b>Cách đọc selector:</b> đọc từ phải sang trái. <code>.card .title</code> = “phần tử có class <code>title</code> nằm trong phần tử có class <code>card</code>”.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+
+    <!-- 1. CƠ BẢN -->
+    <section class="card">
+      <span class="tag blue">1 — Cơ bản nhất</span>
+      <h2>Chọn theo thẻ, .class, #id</h2>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Selector</th><th>Chọn cái nào?</th><th>Ví dụ</th></tr>
+        <tr><td><code>*</code></td><td>Mọi phần tử</td><td><code>* { margin: 0; }</code></td></tr>
+        <tr><td><code>p</code></td><td>Mọi thẻ <code>&lt;p&gt;</code></td><td><code>p { line-height: 1.6; }</code></td></tr>
+        <tr><td><code>.card</code></td><td>Mọi phần tử có class <code>card</code></td><td><code>.card { border: 1px solid #ddd; }</code></td></tr>
+        <tr><td><code>#header</code></td><td>Phần tử có id <code>header</code> (duy nhất)</td><td><code>#header { position: sticky; }</code></td></tr>
+        <tr><td><code>div.card</code></td><td>Thẻ <code>&lt;div&gt;</code> có class <code>card</code></td><td><code>div.card { ... }</code></td></tr>
+        <tr><td><code>.btn.primary</code></td><td>Phần tử có <b>cả 2 class</b> <code>btn</code> và <code>primary</code></td><td><code>.btn.primary { background: purple; }</code></td></tr>
+        <tr><td><code>.card, .box</code></td><td>Cả class <code>card</code> <b>và</b> class <code>box</code> (dấu phẩy = “hoặc”)</td><td><code>.card, .box { padding: 16px; }</code></td></tr>
+      </table>
+      </div>
+      <div class="note warn"><b>Phân biệt quan trọng nhất:</b><br>
+      <code>.card.featured</code> (không khoảng trắng) = 1 phần tử vừa có class <code>card</code> vừa có class <code>featured</code>.<br>
+      <code>.card .featured</code> (có khoảng trắng) = phần tử class <code>featured</code> nằm <b>bên trong</b> phần tử class <code>card</code>.</div>
+    </section>
+
+    <!-- 2. COMBINATOR -->
+    <section class="card">
+      <span class="tag green">2 — Quan hệ cha / con / anh em</span>
+      <h2>Combinator: 4 dấu nối</h2>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Selector</th><th>Tên</th><th>Chọn cái nào?</th></tr>
+        <tr><td><code>.card p</code></td><td>Descendant (khoảng trắng)</td><td>Mọi <code>&lt;p&gt;</code> nằm trong <code>.card</code>, sâu bao nhiêu cũng được</td></tr>
+        <tr><td><code>.card &gt; p</code></td><td>Child (<code>&gt;</code>)</td><td>Chỉ <code>&lt;p&gt;</code> là <b>con trực tiếp</b> của <code>.card</code></td></tr>
+        <tr><td><code>h2 + p</code></td><td>Adjacent (<code>+</code>)</td><td><code>&lt;p&gt;</code> đứng <b>ngay sau</b> <code>&lt;h2&gt;</code>, cùng cha</td></tr>
+        <tr><td><code>h2 ~ p</code></td><td>General sibling (<code>~</code>)</td><td>Mọi <code>&lt;p&gt;</code> đứng <b>sau</b> <code>&lt;h2&gt;</code>, cùng cha</td></tr>
+      </table>
+      </div>
+<pre><code><span class="c">/* HTML: .menu > li > a */</span>
+.menu li { ... }        <span class="c">/* mọi li trong menu, kể cả menu con */</span>
+.menu &gt; li { ... }      <span class="c">/* chỉ li cấp 1, không ăn menu con */</span>
+.menu &gt; li &gt; a { ... }  <span class="c">/* link của li cấp 1 */</span>
+
+<span class="c">/* Dùng + rất hay cho form: label ngay sau input */</span>
+input:checked + label { font-weight: bold; }</code></pre>
+      <div class="note good"><b>Mẹo thực tế:</b> menu đa cấp thì dùng <code>&gt;</code> để style cấp 1 không bị “dính” sang cấp con. List lồng nhau mà dùng khoảng trắng thì cấp con cũng bị ăn theo.</div>
+    </section>
+
+    <!-- 3. ATTRIBUTE -->
+    <section class="card">
+      <span class="tag orange">3 — Theo thuộc tính</span>
+      <h2>Attribute selector: [ ... ]</h2>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Selector</th><th>Chọn cái nào?</th></tr>
+        <tr><td><code>[disabled]</code></td><td>Có thuộc tính <code>disabled</code> (không cần giá trị)</td></tr>
+        <tr><td><code>[type="text"]</code></td><td><code>type</code> đúng bằng <code>text</code></td></tr>
+        <tr><td><code>[href^="https"]</code></td><td><code>href</code> <b>bắt đầu bằng</b> <code>https</code></td></tr>
+        <tr><td><code>[href$=".pdf"]</code></td><td><code>href</code> <b>kết thúc bằng</b> <code>.pdf</code></td></tr>
+        <tr><td><code>[href*="download"]</code></td><td><code>href</code> <b>chứa chuỗi</b> <code>download</code></td></tr>
+        <tr><td><code>[class~="tag"]</code></td><td>Class list có từ <code>tag</code> (cách nhau bằng khoảng trắng)</td></tr>
+        <tr><td><code>[lang|="en"]</code></td><td><code>lang</code> là <code>en</code> hoặc bắt đầu <code>en-</code></td></tr>
+      </table>
+      </div>
+<pre><code><span class="c">/* Ví dụ hay dùng thật */</span>
+a[href^="http"]::after { content: " ↗"; }
+a[href$=".pdf"] { color: red; }
+input[type="text"],
+input[type="email"] { border: 1px solid #ccc; }
+button[disabled] { opacity: .5; cursor: not-allowed; }</code></pre>
+    </section>
+
+    <!-- 4. PSEUDO-CLASS -->
+    <section class="card">
+      <span class="tag purple">4 — Theo trạng thái &amp; vị trí</span>
+      <h2>Pseudo-class: :một-dấu-hai-chấm</h2>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Nhóm</th><th>Selector hay dùng</th></tr>
+        <tr><td>Chuột / bàn phím</td><td><code>:hover</code>, <code>:active</code>, <code>:focus</code>, <code>:focus-visible</code>, <code>:visited</code></td></tr>
+        <tr><td>Form</td><td><code>:checked</code>, <code>:disabled</code>, <code>:enabled</code>, <code>:required</code>, <code>:valid</code>, <code>:invalid</code>, <code>:placeholder-shown</code></td></tr>
+        <tr><td>Vị trí trong cha</td><td><code>:first-child</code>, <code>:last-child</code>, <code>:only-child</code>, <code>:nth-child(n)</code>, <code>:nth-last-child(n)</code></td></tr>
+        <tr><td>Vị trí theo loại thẻ</td><td><code>:first-of-type</code>, <code>:last-of-type</code>, <code>:nth-of-type(n)</code></td></tr>
+        <tr><td>Khác</td><td><code>:empty</code> (không có con gì), <code>:root</code> (thẻ <code>&lt;html&gt;</code>), <code>:not(...)</code> (phủ định)</td></tr>
+      </table>
+      </div>
+<pre><code><span class="c">/* Vị trí: n bắt đầu từ 1, không phải 0 */</span>
+.menu li:first-child { ... }   <span class="c">/* li đầu tiên */</span>
+.menu li:last-child  { ... }   <span class="c">/* li cuối cùng */</span>
+.menu li:nth-child(2)     { ... }  <span class="c">/* li thứ 2 */</span>
+.menu li:nth-child(odd)   { ... }  <span class="c">/* li lẻ: 1, 3, 5... */</span>
+.menu li:nth-child(even)  { ... }  <span class="c">/* li chẵn: 2, 4, 6... */</span>
+.menu li:nth-child(3n)    { ... }  <span class="c">/* li 3, 6, 9... */</span>
+.menu li:nth-child(3n+1)  { ... }  <span class="c">/* li 1, 4, 7... */</span>
+
+<span class="c">/* Phủ định: mọi nút trừ nút chính */</span>
+.btn:not(.primary) { background: #eee; }</code></pre>
+      <div class="note"><b><code>:first-child</code> vs <code>:first-of-type</code>:</b> <code>p:first-child</code> chỉ đúng khi <code>&lt;p&gt;</code> đó là con đầu tiên của cha. Nếu con đầu tiên là <code>&lt;h2&gt;</code> thì <code>p:first-child</code> không chọn gì cả — lúc đó dùng <code>p:first-of-type</code>.</div>
+    </section>
+
+    <!-- 5. PSEUDO-ELEMENT -->
+    <section class="card">
+      <span class="tag pink">5 — Phần “ảo” của phần tử</span>
+      <h2>Pseudo-element: ::hai-dấu-hai-chấm</h2>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Selector</th><th>Tác dụng</th></tr>
+        <tr><td><code>::before</code> / <code>::after</code></td><td>Chèn nội dung ảo trước / sau phần tử — <b>bắt buộc có <code>content: ""</code></b></td></tr>
+        <tr><td><code>::first-line</code></td><td>Dòng đầu tiên của đoạn văn</td></tr>
+        <tr><td><code>::first-letter</code></td><td>Chữ cái đầu tiên (drop cap)</td></tr>
+        <tr><td><code>::marker</code></td><td>Dấu đầu dòng của <code>&lt;li&gt;</code></td></tr>
+        <tr><td><code>::selection</code></td><td>Phần text người dùng bôi đen</td></tr>
+        <tr><td><code>::placeholder</code></td><td>Text placeholder trong input</td></tr>
+      </table>
+      </div>
+<pre><code>.btn::before { content: "🛒 "; }
+.price::after { content: " VNĐ"; }
+.desc::first-letter {
+  font-size: 2em; font-weight: bold;
+}
+::selection { background: yellow; }
+input::placeholder { color: #999; }</code></pre>
+      <p class="sub">Phân biệt: <code>:hover</code> là <b>trạng thái thật</b> (1 dấu hai chấm), <code>::before</code> là <b>phần tử ảo</b> (2 dấu hai chấm). Trình duyệt cũ vẫn hiểu <code>:before</code> 1 dấu, nhưng chuẩn mới nên viết 2 dấu.</p>
+    </section>
+
+    <!-- 6. NÂNG CAO -->
+    <section class="card">
+      <span class="tag blue">6 — Nâng cao, gọn code</span>
+      <h2>:is() :where() :has()</h2>
+<pre><code><span class="c">/* :is() — gộp nhiều selector, khỏi lặp lại */</span>
+:is(h1, h2, h3) { margin: 0; }
+<span class="c">/* thay cho: h1, h2, h3 { margin: 0; } */</span>
+.card :is(.title, .desc) { color: #333; }
+
+<span class="c">/* :where() — giống :is() nhưng độ ưu tiên = 0,
+   nên dễ bị ghi đè, hợp làm style mặc định */</span>
+:where(.card, .box) p { margin: 0; }
+
+<span class="c">/* :has() — chọn CHA dựa vào CON (selector ngược) */</span>
+.card:has(img) { padding: 0; }          <span class="c">/* card nào có ảnh */</span>
+.card:has(&gt; .badge) { border-color: red; }
+label:has(input:checked) { font-weight: bold; }
+a:has(&gt; img) { display: inline-block; }</code></pre>
+      <div class="note good"><b><code>:has()</code> là thứ trước đây CSS không làm được</b> (phải nhờ JavaScript). Trình duyệt hiện đại đều hỗ trợ. Nếu cần hỗ trợ trình duyệt rất cũ thì vẫn phải dùng JS.</div>
+    </section>
+
+    <!-- 7. SPECIFICITY -->
+    <section class="card full">
+      <span class="tag orange">7 — Khi 2 selector cùng chọn 1 phần tử, ai thắng?</span>
+      <h2>Specificity: độ ưu tiên (không phải “viết sau thắng”)</h2>
+      <p class="sub">Tính điểm: <b>inline style = 1000, #id = 100, .class / [thuộc tính] / :pseudo-class = 10, thẻ / ::pseudo-element = 1, * = 0</b>. Điểm cao hơn thắng, bất kể viết trước hay sau. Bằng điểm thì rule viết sau thắng.</p>
+      <div class="table-wrap">
+      <table>
+        <tr><th>Selector</th><th>Cách tính</th><th>Điểm</th></tr>
+        <tr><td><code>p</code></td><td>1 thẻ</td><td>1</td></tr>
+        <tr><td><code>.card p</code></td><td>1 class + 1 thẻ</td><td>11</td></tr>
+        <tr><td><code>.card .title</code></td><td>2 class</td><td>20</td></tr>
+        <tr><td><code>#header .menu a</code></td><td>1 id + 1 class + 1 thẻ</td><td>111</td></tr>
+        <tr><td><code>style="..."</code> (inline)</td><td>—</td><td>1000</td></tr>
+        <tr><td><code>!important</code></td><td>—</td><td>Thắng hết (trừ <code>!important</code> khác)</td></tr>
+      </table>
+      </div>
+      <div class="vs">
+        <div class="no"><b>❌ Tránh:</b> càng lồng sâu càng khó ghi đè sau này.<br><code>#page .wrap .content .card .title { ... }</code><br>→ điểm cao, sau này muốn đổi màu phải viết selector còn dài hơn.</div>
+        <div class="yes"><b>✅ Nên:</b> class ngắn, đủ rõ nghĩa.<br><code>.card-title { ... }</code><br>→ điểm thấp, dễ ghi đè bằng 1 class khác, dễ tái dùng.</div>
+      </div>
+      <p class="sub" style="margin-top:12px"><b>Quy tắc:</b> dùng <code>!important</code> chỉ khi thật sự bí, vì nó phá thứ tự ưu tiên và gây khó debug. Ưu tiên đặt tên class rõ nghĩa (kiểu BEM: <code>.card__title</code>, <code>.card--featured</code>) thay vì lồng selector sâu.</p>
+    </section>
+
+    <!-- 8. DEMO -->
+    <section class="card full">
+      <span class="tag green">8 — Demo trực quan (các selector này đang chạy thật trong file)</span>
+      <h2>Nhìn là hiểu: selector nào tô màu cái nào</h2>
+      <div class="demo">
+        <p class="demo-note">Code CSS của demo nằm trong thẻ &lt;style&gt; của file này, class bắt đầu bằng <code>demo-</code> để khỏi lẫn với nội dung cheat sheet.</p>
+
+        <div class="demo-box">
+          <p>← <code>.demo-box &gt; p</code>: con trực tiếp → chữ đậm, màu xanh</p>
+          <div><p>← <code>.demo-box p</code>: cháu bên trong → chỉ ăn rule này, không đậm</p></div>
+        </div>
+
+        <ul class="demo-list" style="margin-top:14px">
+          <li><code>li:first-child</code></li>
+          <li>li thứ 2 (bình thường)</li>
+          <li><code>li:nth-child(3)</code></li>
+          <li><code>li:last-child</code></li>
+        </ul>
+
+        <div class="demo-card featured" style="margin-top:14px">
+          <b><code>.demo-card.featured</code></b> — 1 phần tử có cả 2 class → viền tím, có bóng. Thẻ này mà thiếu 1 trong 2 class là mất hiệu ứng.
+        </div>
+
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button class="demo-btn">.demo-btn</button>
+          <button class="demo-btn primary">.demo-btn.primary (di chuột vào thử)</button>
+          <input class="demo-input" type="text" placeholder="input[type=&quot;text&quot;]:focus → viền xanh">
+        </div>
+
+        <div class="demo-card demo-parent" style="margin-top:14px">
+          <span class="demo-badge">.demo-badge</span> — Thẻ cha này có viền hồng nhờ <code>.demo-parent:has(.demo-badge)</code> (chọn cha dựa vào con).
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. JS + LỖI -->
+    <section class="card">
+      <span class="tag purple">9 — Cùng cú pháp, dùng trong JavaScript</span>
+      <h2>document.querySelector()</h2>
+      <p class="sub">“Query” còn là tên hàm JS lấy phần tử — và nó nhận đúng selector CSS này.</p>
+<pre><code><span class="c">// Lấy phần tử ĐẦU TIÊN khớp selector</span>
+document.querySelector('.card');
+document.querySelector('#header');
+document.querySelector('.menu &gt; li:first-child');
+
+<span class="c">// Lấy TẤT CẢ phần tử khớp selector</span>
+document.querySelectorAll('.btn.primary');
+document.querySelectorAll('input[type="text"]');</code></pre>
+      <div class="note"><b>Nhớ:</b> <code>querySelector('.card')</code> có dấu chấm. Viết <code>querySelector('card')</code> là tìm thẻ <code>&lt;card&gt;</code> → trả về <code>null</code>.</div>
+    </section>
+
+    <section class="card">
+      <span class="tag orange">10 — Lỗi hay gặp</span>
+      <h2>Checklist khi style “không ăn”</h2>
+      <ul>
+        <li><b>Quên dấu chấm:</b> viết <code>card { }</code> thay vì <code>.card { }</code>.</li>
+        <li><b>Nhầm khoảng trắng:</b> <code>.card .title</code> ≠ <code>.card.title</code> (xem mục 1).</li>
+        <li><b>Sai tên class:</b> class phân biệt hoa thường — <code>.Card</code> ≠ <code>.card</code>.</li>
+        <li><b>Trùng id:</b> id phải duy nhất trong trang. Cần style nhiều phần tử → dùng class.</li>
+        <li><b>Bị rule khác đè:</b> kiểm tra specificity (mục 7) và thứ tự file CSS — không vội thêm <code>!important</code>.</li>
+        <li><b>Thiếu class trong HTML:</b> CSS viết đúng nhưng HTML chưa gắn class đó.</li>
+        <li><b><code>:nth-child</code> đếm từ 1</b>, không phải từ 0 như mảng trong JS.</li>
+      </ul>
+      <div class="note good"><b>Cách debug nhanh:</b> mở DevTools (F12) → tab Elements → nhìn xem phần tử có đúng class không, rule nào bị gạch ngang (bị đè) và rule nào thắng.</div>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  Nhớ nhanh: <b>.</b> = class, <b>#</b> = id, <b>khoảng trắng</b> = nằm trong, <b>&gt;</b> = con trực tiếp, <b>+</b> = ngay sau, <b>~</b> = sau đó, <b>:</b> = trạng thái, <b>::</b> = phần ảo.
+</footer>
+
+</body>
+</html>

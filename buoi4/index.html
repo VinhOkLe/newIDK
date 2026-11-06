@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyOS Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Nhúng font chữ Inter từ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="container">
+    <!-- Sidebar / Menu bên trái -->
+    <aside class="sidebar">
+      <div class="brand">StudyOS</div>
+      <nav class="nav-menu">
+        <a href="#" class="nav-item active">Overview</a>
+        <a href="#" class="nav-item">Courses</a>
+        <a href="#" class="nav-item">Tasks</a>
+      </nav>
+    </aside>
+
+    <!-- Nội dung chính bên phải -->
+    <main class="main-content">
+      <h1 class="greeting">Good morning!</h1>
+
+      <!-- Các thẻ thống kê -->
+      <div class="stats-grid">
+        <!-- Thẻ Day Streak -->
+        <div class="stat-card streak-card">
+          <div class="stat-value">12</div>
+          <div class="stat-label">day streak</div>
+        </div>
+
+        <!-- Thẻ Tasks -->
+        <div class="stat-card tasks-card">
+          <div class="stat-value">7</div>
+          <div class="stat-label">tasks</div>
+        </div>
+
+        <!-- Thẻ Progress -->
+        <div class="stat-card progress-card">
+          <div class="stat-value">84%</div>
+          <div class="stat-label">progress</div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

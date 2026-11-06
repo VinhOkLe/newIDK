@@ -1,0 +1,72 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: white;
+}
+
+/* Card */
+.card {
+    width: 238px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #c9c9d8;
+    border-radius: 12px;
+    background-color: white;
+}
+.card:hover {
+    background-color: rgb(225, 255, 255);
+    border: 2px solid #7696ff;
+}
+
+/* Thumbnail */
+.thumbnail {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e1e2ed;
+    border-radius: 8px;
+
+    color: #85869a;
+    font-size: 10px;
+}
+
+/* Tiêu đề */
+.card h3 {
+    margin: 10px 0 5px;
+    font-size: 12px;
+    color: #20202a;
+}
+
+/* Mô tả */
+.card p {
+    margin: 0 0 10px;
+    font-size: 10px;
+    color: #666675;
+}
+
+/* Button */
+.card button {
+    padding: 6px 13px;
+    border: none;
+    border-radius: 6px;
+
+    background-color: #202533;
+    color: white;
+
+    font-size: 9px;
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.card button:hover {
+    background-color: #373c49;
+}

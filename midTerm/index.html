@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chief LA - Loan Dashboard</title>
+    <meta name="description" content="Chief LA - manage your loans, repayment plans, and more from one dashboard." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">Chief LA</div>
+
+        <ul class="nav-links">
+            <li><a href="#" class="active" id="nav-home">Home</a></li>
+            <li><a href="#" id="nav-about">About us</a></li>
+            <li><a href="#" id="nav-services">Services</a></li>
+            <li><a href="#" id="nav-contact">Contact Us</a></li>
+        </ul>
+
+        <div class="nav-right">
+            <button class="nav-bell-btn" id="nav-bell-icon" title="Notifications" aria-label="Notifications">
+                <i class="fa-regular fa-bell"></i>
+            </button>
+            <img class="nav-avatar" id="nav-avatar-wrapper" src="./avatar.png" alt="Kunle Ajayi" />
+            <span class="nav-username">Kunle Ajayi</span>
+        </div>
+    </nav>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+            <ul class="sidebar-menu">
+                <li class="active" id="menu-dashboard">
+                    <a href="#">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li id="menu-transaction">
+                    <a href="#">
+                        <i class="fa-solid fa-credit-card"></i>
+                        <span>Transaction</span>
+                    </a>
+                </li>
+                <li id="menu-notifications">
+                    <a href="#">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>Notifications</span>
+                    </a>
+                </li>
+                <li id="menu-support">
+                    <a href="#">
+                        <i class="fa-regular fa-circle-question"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+                <li id="menu-settings">
+                    <a href="#">
+                        <i class="fa-solid fa-gear"></i>
+                        <span>settings</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-spacer"></li>
+
+                <li class="logout" id="menu-logout">
+                    <a href="#">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        <span>Log out</span>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main">
+
+            <div class="dash-header">
+                <h1 class="dash-title">Dashboard</h1>
+                <button class="btn-feedback" id="btn-reviews-feedback">Reviews &amp; Feedback</button>
+            </div>
+
+            <div class="top-cards">
+                <button class="top-card" id="card-loans-available">Loans Available</button>
+                <button class="top-card" id="card-repayment-options">Repayment Options</button>
+                <button class="top-card" id="card-percentage-calculator">percentage Calculator</button>
+            </div>
+
+            <div class="middle-row">
+                <button class="big-card" id="card-request-loan">REQUEST LOAN</button>
+
+                <button class="big-card" id="card-repayment-plan">
+                    CHOOSE A<br />REPAYMENT<br />PLAN
+                </button>
+
+                <div class="update-card" id="card-latest-update">
+                    <h2 class="update-title">Latest Update</h2>
+                    <ul class="update-items">
+                        <li class="update-item">Lorem ipsum dolor sit amet consectetur. Iaculis diam pretium sem
+                            porttitor nibh.</li>
+                        <li class="update-item">Lorem ipsum dolor sit amet consectetur. Iaculis diam pretium sem
+                            porttitor nibh.</li>
+                        <li class="update-item">Lorem ipsum dolor sit amet consectetur. Iaculis diam pretium sem
+                            porttitor nibh.</li>
+                        <li class="update-item">Lorem ipsum dolor sit amet consectetur. Iaculis diam pretium sem
+                            porttitor nibh.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="bottom-row">
+                <button class="status-card" id="card-loan-status">Loan application status</button>
+
+                <div class="chat-area">
+                    <span class="chat-label">Chat Now</span>
+                    <button class="chat-btn" id="btn-chat-now" title="Chat Now">
+                        <i class="fa-solid fa-comment-dots"></i>
+                    </button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+</body>
+
+</html>
